@@ -18,6 +18,9 @@ import { UsersListComponent } from './users/users-list/users-list.component';
 import { SignupComponent } from './users/signup/signup.component';
 import { SigninComponent } from './users/signin/signin.component';
 import { AuthComponent } from './users/auth/auth.component';
+import { PostsListComponent } from './posts/posts-list/posts-list.component';
+import { StoriesListComponent } from './stories/stories-list/stories-list.component';
+import { FriendsListComponent } from './friends/friends-list/friends-list.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { AuthComponent } from './users/auth/auth.component';
     UsersListComponent,
     SignupComponent,
     SigninComponent,
-    AuthComponent
+    AuthComponent,
+    PostsListComponent,
+    StoriesListComponent,
+    FriendsListComponent
   ],
   imports: [
     BrowserModule,

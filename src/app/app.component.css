@@ -93,3 +93,7 @@ button{
     font-size: 15px;
 }
 
+.search-form {
+    width: 40vh;
+    margin-left: 40px;
+  }
