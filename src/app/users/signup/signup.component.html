@@ -1,0 +1,32 @@
+<form [formGroup]="signupForm" class="signup-container-main" (ngSubmit)="login()">
+<div class="signup-container">
+    <mat-form-field hintLabel="Max 30 characters">
+      <input matInput #input maxlength="30" placeholder="Enter Username">
+      <mat-hint align="end">{{input.value?.length || 0}}/30</mat-hint>
+    </mat-form-field>
+</div>
+<div class="signup-container">
+    <mat-form-field>
+      <input matInput placeholder="Enter your email" [formControl]="email" required>
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="signup-container">
+      <mat-form-field>
+        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+    </div>
+  <div class="signup-container">
+        <mat-form-field>
+          <span matPrefix>+92 &nbsp;</span>
+          <input type="tel" matInput placeholder="Telephone">
+          <mat-icon matSuffix>mode_edit</mat-icon>
+        </mat-form-field>
+  </div>
+  <div class="signup-buttons-container">
+      <button mat-raised-button>SIGNUP</button>
+      <button mat-raised-button>RESET</button>
+  </div>
+</form>
