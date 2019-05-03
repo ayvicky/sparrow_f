@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { EmojiPickerModule }  from 'ng2-emoji-picker';
 import { CookieService } from 'ngx-cookie-service';
 import { MatCardModule, MatIconModule,
          MatButtonModule, MatSidenavModule,
@@ -21,6 +22,12 @@ import { AuthComponent } from './users/auth/auth.component';
 import { PostsListComponent } from './posts/posts-list/posts-list.component';
 import { StoriesListComponent } from './stories/stories-list/stories-list.component';
 import { FriendsListComponent } from './friends/friends-list/friends-list.component';
+import { MessageListComponent } from './messages/message-list/message-list.component';
+import { MessageChatComponent } from './messages/message-chat/message-chat.component';
+import { DevelopersChatComponent } from './messages/developers-chat/developers-chat.component';
+import { TestersChatComponent } from './messages/testers-chat/testers-chat.component';
+import { DesignersChatComponent } from './messages/designers-chat/designers-chat.component';
+import { PersonalChatComponent } from './personal-chat/personal-chat.component';
 
 @NgModule({
   declarations: [
@@ -31,11 +38,19 @@ import { FriendsListComponent } from './friends/friends-list/friends-list.compon
     AuthComponent,
     PostsListComponent,
     StoriesListComponent,
-    FriendsListComponent
+    FriendsListComponent,
+    MessageListComponent,
+    MessageChatComponent,
+    DevelopersChatComponent,
+    TestersChatComponent,
+    DesignersChatComponent,
+    PersonalChatComponent
   ],
   imports: [
+    EmojiPickerModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,

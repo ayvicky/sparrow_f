@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import io from 'socket.io-client';
 
 import { FriendService, TokenService } from './services';
+import { AuthService } from './services/auth.service';
 
 
 @Component({
@@ -21,6 +22,8 @@ export class AppComponent implements OnInit {
   notifications = [];
   storyForm;
 
+  isActiveChat = false;
+
   users = [
     {
       name: 'ab'
@@ -33,26 +36,37 @@ export class AppComponent implements OnInit {
     }
   ];
 
-  constructor(private fb: FormBuilder, private friendService: FriendService,
-    private tokenService: TokenService, private router: Router) {
+  constructor(private friendService: FriendService,
+    private tokenService: TokenService, private authService: AuthService, private router: Router) {
     this.socketHost = 'http://localhost:8080';
     this.socket = io(this.socketHost);
-
   }
 
   ngOnInit() {
     const token = this.tokenService.get();
     if (token) {
-      this.router.navigate(['users']);
+    //  this.router.navigate(['users']);
+      console.log('navigate to users');
     } else {
       this.router.navigate([]);
     }
-    this.storyForm = new FormGroup({
-
-    });
 
     this.friendService.getAll().subscribe(data => {
       console.log(data);
     });
+  }
+
+  signout() {
+    this.authService.signout().subscribe(data => {
+      console.log(data);
+      this.tokenService.delete();
+      this.router.navigate(['/']);
+    });
+
+  }
+
+
+  close(){
+    this.isActiveChat = false;
   }
 }

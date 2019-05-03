@@ -1,6 +1,6 @@
 
 
-<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" class="container">
   <mat-card class="card-picture" *ngFor="let user of users">
     <img mat-card-image [src]="(user.picture_url)? user.picture_url: 'https://via.placeholder.com/75'">
     <mat-card-header>

@@ -43,10 +43,9 @@ export class SigninComponent implements OnInit {
           this.errorMsg = data.message;
       }else{
         const token = data.token;
-        console.log(token);
         this.tokenService.set(token);
-//        localStorage.setItem('ACCESS_TOKEN', token);
         this.router.navigateByUrl('/users');
+        console.log('after login', token);
       }
     });
   }

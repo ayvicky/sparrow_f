@@ -6,6 +6,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { PostsListComponent } from './posts/posts-list/posts-list.component';
 import { StoriesListComponent } from './stories/stories-list/stories-list.component';
 import { FriendsListComponent } from './friends/friends-list/friends-list.component';
+import { MessageListComponent } from './messages/message-list/message-list.component';
+import { MessageChatComponent } from './messages/message-chat/message-chat.component';
 
 const routes: Routes = [
   {
@@ -36,7 +38,23 @@ const routes: Routes = [
     path: 'friends',
     component: FriendsListComponent,
     canActivate: [AuthGuard]
-  }
+  },
+  {
+    path: 'messages',
+    component: MessageListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'chat',
+    component: MessageChatComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: '**',
+    redirectTo: '/users',
+    pathMatch: 'full'
+  },
+  
 ];
 
 @NgModule({

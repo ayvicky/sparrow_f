@@ -1,3 +1,20 @@
+.container {
+  max-width: 1600;
+  height: 100%;
+  margin: auto;
+}
+
+.mat-card {
+  position: relative;
+  background: white;
+  display: inline-block;
+  border-radius: 3px;
+  width: 300px;
+  height: 300px;
+  border: 1px solid lightgray;
+  margin: 30px 15px 30px 15px;
+}
+
 .user-card {
     max-width: 300px;
   }

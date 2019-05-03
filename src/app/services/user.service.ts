@@ -9,8 +9,7 @@ const BASEURL = 'http://localhost:8080/api';
   providedIn: 'root'
 })
 export class UserService {
-  options = { headers: new HttpHeaders().set('Content-Type', 'application/json') }
-
+ 
   constructor(private http: HttpClient) { 
 
     
@@ -22,7 +21,7 @@ export class UserService {
 
   getUsers(): Observable<any>{
     
-    return this.http.get(`${BASEURL}/users/`, this.options);
+    return this.http.get(`${BASEURL}/users/`);
   }
  
 }
