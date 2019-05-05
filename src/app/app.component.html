@@ -1,212 +1,51 @@
 <!--The content below is only a placeholder and can be replaced.-->
-
-<div style="height: 100vh;">
-  <mat-toolbar style="background: rgba(235, 235, 235, 0.1); color:aliceblue;">
-    <div fxShow="true" fxHide.gt-sm="true">
-      <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </div>
-    <a mat-button class="companyName" routerLink="/">
-      <span>Site name</span>
-    </a>
-
-    <mat-form-field class="search-form">
-      <input matInput placeholder="Search" type="text">
-      <mat-icon style="position: relative; margin-left: -30px;">autorenew</mat-icon>
-    </mat-form-field>
-    <br>
-
-
-    <span class="example-spacer"></span>
-    <div fxShow="true" fxHide.lt-md="true">
-      <a mat-button routerLink="/posts"><img src="https://via.placeholder.com/25"> UserName</a>
-      <a mat-button routerLink="/stories">Home</a>
-
-      <button mat-icon-button [matMenuTriggerFor]="friendsmenu">
-        <mat-icon matBadge="15" matBadgeColor="warn" style="margin:5px 10px;">people</mat-icon>
-      </button>
-      <mat-menu #friendsmenu="matMenu">
-        <button mat-menu-item class="friends-container" *ngFor="let user of users">
-          <img src="https://via.placeholder.com/15" alt="avatar">
-          <div class="time"> 03/04/2019 </div>
-          <div class="about">
-            <button> Add as a friend </button>
-            <button> Confirm </button>
-            <button> Ignore </button>
-            <button> Cancel </button>
-          </div>
-        </button>
-      </mat-menu>
-
-      <button mat-icon-button [matMenuTriggerFor]="messagesmenu">
-        <mat-icon matBadge="15" matBadgeColor="warn" style="margin:5px 10px;">chat</mat-icon>
-      </button>
-      <mat-menu #messagesmenu="matMenu">
-        <span mat-menu-item class="message-container" *ngFor="let user of users">
-          <img src="https://via.placeholder.com/15" alt="avatar">
-          <div class="time"> 03/04/2019 </div>
-          <div class="about">
-            <div class="name"> {{user.name}} </div>
-            <div class="message"> This is for you </div>
-          </div>
-        </span>
-      </mat-menu>
-
-      <button mat-icon-button [matMenuTriggerFor]="notificationsmenu">
-        <mat-icon matBadge="15" matBadgeColor="warn" style="margin:5px 10px;">notification_important</mat-icon>
-      </button>
-      <mat-menu #notificationsmenu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>dialpad</mat-icon>
-          <span>Redial</span>
-        </button>
-      </mat-menu>
-    </div>
-
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>account_circle</mat-icon>
-        <span>Profile</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>security</mat-icon>
-        <span>Privacy Settings</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>settings</mat-icon>
-        <span>General Settings</span>
-      </button>
-      <button mat-menu-item (click)="signout()">
-        <mat-icon>settings</mat-icon>
-        <span>Sign out</span>
-      </button>
-    </mat-menu>
-  </mat-toolbar>
-  <mat-sidenav-container fxFlexFill style="background-color: darkgray; color:aliceblue;">
-    <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over" opened="false" fxHide.gt-sm="true"
-      style="width:210px;">
-      <div fxLayout="column">
-        <a mat-button routerLink="/" style="width:100%; text-align: left;">
-          <mat-icon>home</mat-icon> HOME
-        </a>
-        <a mat-button routerLink="/posts" routerLinkActive="active" style="width:100%; text-align: left;">
-          <mat-icon>home</mat-icon> POSTS
-        </a>
-        <a mat-button routerLink="/stories" routerLinkActive="active" style="width:100%; text-align: left;">
-          <mat-icon>home</mat-icon> STORIES
-        </a>
-        <a mat-button routerLink="/friends" routerLinkActive="active" style="width:100%; text-align: left;">
-          <mat-icon>home</mat-icon> FRIENDS
-        </a>
-        <a mat-button routerLink="/users" routerLinkActive="active" style="width:100%; text-align: left;">
-          <mat-icon>home</mat-icon> USERS
-        </a>
-      </div>
-    </mat-sidenav>
-    <mat-sidenav-content fxFlexFill>
-      <h1> Socket IO Demo </h1>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
-
-
-
-
+<app-toolbar *ngIf="token"></app-toolbar>
 
 <!-- Personal Chat -->
-
-
-
 <div id="live-chat" *ngIf="isActiveChat">
-		
-		<header class="clearfix">
-			
-			<a class="chat-close" (click)="close()" >x</a>
 
-			<h4>John Doe</h4>
-
-			<span class="chat-message-counter">3</span>
-
-		</header>
-
-		<div class="chat">
-			
-			<div class="chat-history">
-				
-				<div class="chat-message clearfix">
-					
-					<img src="http://lorempixum.com/32/32/people" alt="" width="32" height="32">
-
-					<div class="chat-message-content clearfix">
-						
-						<span class="chat-time">13:35</span>
-
-						<h5>John Doe</h5>
-
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, explicabo quasi ratione odio dolorum harum.</p>
-
-					</div> <!-- end chat-message-content -->
-
-				</div> <!-- end chat-message -->
-
-				<hr>
-
-				<div class="chat-message clearfix">
-					
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
-
-					<div class="chat-message-content clearfix">
-						
-						<span class="chat-time">13:37</span>
-
-						<h5>Marco Biedermann</h5>
-
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, nulla accusamus magni vel debitis numquam qui tempora rem voluptatem delectus!</p>
-
-					</div> <!-- end chat-message-content -->
-
-				</div> <!-- end chat-message -->
-
-				<hr>
-
-				<div class="chat-message clearfix">
-					
-					<img src="http://lorempixum.com/32/32/people" alt="" width="32" height="32">
-
-					<div class="chat-message-content clearfix">
-						
-						<span class="chat-time">13:38</span>
-
-						<h5>John Doe</h5>
-
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-
-					</div> <!-- end chat-message-content -->
-
-				</div> <!-- end chat-message -->
-
-				<hr>
-
-			</div> <!-- end chat-history -->
-
-			<p class="chat-feedback">Your partner is typing…</p>
-
-			<form action="#" method="post">
-
-				<fieldset>
-					
-					<input type="text" placeholder="Type your message…" autofocus>
-					<input type="hidden">
-
-				</fieldset>
-
-			</form>
-
-		</div> <!-- end chat -->
-
-	</div> <!-- end live-chat -->
+    <header class="clearfix">
+      <a class="chat-close" style="display:block !important;" (click)="close()">x</a>
+      <h4> {{receivername}} </h4>
+      <span class="chat-message-counter">3</span>
+    </header>
+    <!--
+    
+    
+    
+  -->
+    <div class="chat">
+      <div class="chat-history" ngx-auto-scroll lock-y-offset="10" observe-attributes>
+        <div *ngFor="let message of personalmessages">
+        <div class="chat-message clearfix" *ngIf="message.sender_id==user._id">
+          <img src="http://lorempixum.com/32/32/people" alt="" width="32" height="32">
+          <div class="chat-message-content clearfix">
+            <span class="chat-time">{{ sendfromnow(message.time) }}</span>
+            <h5>{{message.sender_id}}</h5>
+            <p>{{message.content}}</p>
+          </div> <!-- end chat-message-content -->
+        </div> <!-- end chat-message -->
+        <hr>
+        <div class="chat-message clearfix" *ngIf="message.receiver_id==user._id">
+          <img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+          <div class="chat-message-content clearfix">
+            <span class="chat-time">{{ sendfromnow(message.created_at) }}</span>
+            <h5>{{message.sender_id}}</h5>
+            <p>{{message.content}}</p>
+          </div> <!-- end chat-message-content -->
+        </div> <!-- end chat-message -->
+        <hr>
+        </div>
+      </div> <!-- end chat-history -->
+      <p class="chat-feedback">Your partner is typing…</p>
+      <form>
+        <fieldset>
+          <input type="text" [(ngModel)]="msg" name="message" placeholder="Type your message…" autofocus style="position:relative !important;">
+          <mat-icon style="position: absolute !important; z-index: 1 !important;" (click)="sendMessage()">send</mat-icon>
+        </fieldset>
+      </form>
+    </div> <!-- end chat -->
+  
+  </div> <!-- end live-chat -->
+  
+  

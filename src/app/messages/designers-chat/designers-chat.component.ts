@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { CaretEvent, EmojiEvent } from 'ng2-emoji-picker';
 import io from 'socket.io-client';
@@ -12,13 +12,9 @@ import { TokenService } from '../../services/token.service';
   templateUrl: './designers-chat.component.html',
   styleUrls: ['./designers-chat.component.css']
 })
-export class DesignersChatComponent implements OnInit {
+export class DesignersChatComponent implements OnInit, AfterViewInit {
 
-  messages = [{
-    sender: 'A',
-    message: 'Welcome',
-    time: '1234566'
-  }];
+  messages = [];
   message: string;
 
   public eventMock;
@@ -34,11 +30,15 @@ export class DesignersChatComponent implements OnInit {
   socket: any;
   user: any;
 
+  onlineusers: [];
+
   constructor(private tokenService: TokenService) { }
 
   ngOnInit() {
-    this.socket = io('http://localhost:8080/developers');
+    this.socket = io('http://localhost:8080/designers');
     this.user = this.tokenService.GetPayload();
+
+    this.socket.emit('online', {room: 'designers', user: this.user.username});
 
     this.socket.on('chat message', data => {
       console.log('receive message');
@@ -49,6 +49,11 @@ export class DesignersChatComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit(){
+    this.socket.on('onlineusers', list => {
+      this.onlineusers = list;
+    });
+  }
 
   HandleSelection(event: EmojiEvent) {
     this.content = this.content.slice(0, this._lastCaretEvent.caretOffset)

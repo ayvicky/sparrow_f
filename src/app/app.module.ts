@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { NgxAutoScrollModule } from 'ngx-auto-scroll';
 import { EmojiPickerModule }  from 'ng2-emoji-picker';
 import { CookieService } from 'ngx-cookie-service';
 import { MatCardModule, MatIconModule,
@@ -28,6 +29,7 @@ import { DevelopersChatComponent } from './messages/developers-chat/developers-c
 import { TestersChatComponent } from './messages/testers-chat/testers-chat.component';
 import { DesignersChatComponent } from './messages/designers-chat/designers-chat.component';
 import { PersonalChatComponent } from './personal-chat/personal-chat.component';
+import { ToolbarComponent } from './home/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { PersonalChatComponent } from './personal-chat/personal-chat.component';
     DevelopersChatComponent,
     TestersChatComponent,
     DesignersChatComponent,
-    PersonalChatComponent
+    PersonalChatComponent,
+    ToolbarComponent
   ],
   imports: [
     EmojiPickerModule.forRoot(),
@@ -54,6 +57,7 @@ import { PersonalChatComponent } from './personal-chat/personal-chat.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NgxAutoScrollModule,
 
     MatCardModule,
     MatIconModule,
@@ -72,7 +76,8 @@ import { PersonalChatComponent } from './personal-chat/personal-chat.component';
       useClass: AuthInterceptor,
       multi: true
     },
-    CookieService
+    CookieService,
+    AppComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders  } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -10,17 +10,21 @@ const BASEURL = 'http://localhost:8080/api';
 })
 
 export class MessageService {
-  options = { headers: new HttpHeaders().set('Content-Type', 'application/json') }
-
+  
   constructor(private httpClient: HttpClient) { }
 
   Add(body): Observable<any>{
-    return this.httpClient.post(`${BASEURL}\messages\chat`, body, this.options);
+    return this.httpClient.post(`${BASEURL}/messages/chat`, body);
   }
-  GetSpecificAll(): Observable<any> {
-    return this.httpClient.get(`${BASEURL}\messages\chat-specific`, this.options);
+  GetSpecificAll(sender_id, receiver_id): Observable<any> {
+    const params = new HttpParams();
+    params.set('sender_id', sender_id);
+    params.set('receiver_id', receiver_id);
+    return this.httpClient.get(`${BASEURL}/messages/chat-specific/?sender_id=${sender_id}&receiver_id=${receiver_id}`);
   }
   GetAll(): Observable<any>{
-    return this.httpClient.get(`${BASEURL}\messages\chat`, this.options);
+
+    return this.httpClient.get(`${BASEURL}/messages/chat`);
   }
+
 }

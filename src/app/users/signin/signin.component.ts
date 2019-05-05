@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { User } from '../../interfaces/user';
 import { AuthService, TokenService } from '../../services';
 
-
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',

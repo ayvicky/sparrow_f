@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import io from 'socket.io-client';
 
-import { FriendService, TokenService } from './services';
-import { AuthService } from './services/auth.service';
+import io from 'socket.io-client';
+import * as moment from 'moment';
+import _ from 'lodash';
+
+import {
+  TokenService,
+  ChatService,
+  MessageService
+} from './services';
 
 
 @Component({
@@ -17,56 +23,103 @@ export class AppComponent implements OnInit {
   socketHost;
   socket;
 
-  friends = [];
-  messages = [];
-  notifications = [];
-  storyForm;
+  token;
 
+
+  user: any;
+
+  personalmessages = [];
+  receivername = '';
+  receiver_id: any;
   isActiveChat = false;
+  isShowChat = true;
+  msg: any;
 
-  users = [
-    {
-      name: 'ab'
-    },
-    {
-      name: 'ab1'
-    },
-    {
-      name: 'ab2'
-    }
-  ];
-
-  constructor(private friendService: FriendService,
-    private tokenService: TokenService, private authService: AuthService, private router: Router) {
+  constructor(
+    private tokenService: TokenService,
+    private router: Router, private chatService: ChatService,
+    private messageService: MessageService) {
     this.socketHost = 'http://localhost:8080';
     this.socket = io(this.socketHost);
+
+    this.chatService.chatData.subscribe(data => {
+      this.isActiveChat = true;
+      this.receivername = data.username;
+      this.receiver_id = data._id;
+
+      this.getSpecificMessages();
+
+      const params = {
+        room1: this.user.username,
+        room2: this.receivername
+      };
+
+      this.socket.emit('join private chat', params);
+      console.log('join private chat');
+    });
   }
 
   ngOnInit() {
-    const token = this.tokenService.get();
-    if (token) {
-    //  this.router.navigate(['users']);
-      console.log('navigate to users');
+
+    this.token = this.tokenService.get();
+    if (this.token) {
+      //  this.router.navigate(['users']);        
+      this.user = this.tokenService.GetPayload();
+
+
+      this.socket.emit('online', { room: 'global', user: this.user.username });
     } else {
       this.router.navigate([]);
     }
 
-    this.friendService.getAll().subscribe(data => {
-      console.log(data);
+
+    this.socket.on('private chat message', data => {
+      //  if (data.receiver === this.user.username) {
+      this.isActiveChat = true;
+      this.getSpecificMessages();
+      //  }
+      console.log(this.personalmessages.length);
     });
   }
 
-  signout() {
-    this.authService.signout().subscribe(data => {
-      console.log(data);
-      this.tokenService.delete();
-      this.router.navigate(['/']);
-    });
 
+
+  sendMessage() {
+
+    const body = {
+      sender_id: this.user._id,
+      receiver_id: this.receiver_id,
+      receiver_name: this.receivername,
+      content: this.msg
+    };
+    this.messageService.Add(body).subscribe(result => {
+      this.socket.emit('private chat', { sender: this.user.username, receiver: this.receivername });
+    });
+    this.msg = '';
   }
 
 
-  close(){
+  getSpecificMessages() {
+    this.messageService.GetSpecificAll(this.user._id, this.receiver_id).subscribe(result => {
+      if (result.error === '0') {
+        this.personalmessages = result.messages;
+      }
+    });
+  }
+
+  sendfromnow(date) {
+    return moment(date).fromNow();
+  }
+
+  toggleChat() {
+    this.isShowChat = !this.isShowChat;
+    console.log(this.isShowChat);
+  }
+  close() {
     this.isActiveChat = false;
   }
+
+
+
+
 }
