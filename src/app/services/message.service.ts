@@ -16,14 +16,12 @@ export class MessageService {
   Add(body): Observable<any>{
     return this.httpClient.post(`${BASEURL}/messages/chat`, body);
   }
+  
   GetSpecificAll(sender_id, receiver_id): Observable<any> {
-    const params = new HttpParams();
-    params.set('sender_id', sender_id);
-    params.set('receiver_id', receiver_id);
     return this.httpClient.get(`${BASEURL}/messages/chat-specific/?sender_id=${sender_id}&receiver_id=${receiver_id}`);
   }
+  
   GetAll(): Observable<any>{
-
     return this.httpClient.get(`${BASEURL}/messages/chat`);
   }
 
