@@ -46,7 +46,7 @@
           <img src="https://via.placeholder.com/15" alt="avatar">
           <div class="time"> {{MessageDate(chat.created_at)}} </div>
           <div class="about">
-            <div class="name"> {{chat.sender_id}} </div>
+            <div class="name"> {{(user._id === chat.sender_id) ? chat.receiver_name : chat.sender_name}} </div>
             <div class="message"> {{chat.content}} </div>
           </div>
         </span>
@@ -91,6 +91,9 @@
       <div fxLayout="column">
         <a mat-button routerLink="/" style="width:100%; text-align: left;">
           <mat-icon>home</mat-icon> HOME
+        </a>
+        <a mat-button routerLink="/announcements" routerLinkActive="active" style="width:100%; text-align: left;">
+          <mat-icon>home</mat-icon> ANNOUNCE
         </a>
         <a mat-button routerLink="/posts" routerLinkActive="active" style="width:100%; text-align: left;">
           <mat-icon>home</mat-icon> POSTS

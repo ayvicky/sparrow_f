@@ -11,6 +11,7 @@ import { MatCardModule, MatIconModule,
          MatButtonModule, MatSidenavModule,
          MatToolbarModule, MatMenuModule,
          MatBadgeModule, MatTabsModule,
+         MatListModule, MatExpansionModule,
          MatInputModule, MatFormFieldModule } from '@angular/material';
 
 import { AuthInterceptor } from './interceptors/auth-interceptor';
@@ -30,6 +31,11 @@ import { TestersChatComponent } from './messages/testers-chat/testers-chat.compo
 import { DesignersChatComponent } from './messages/designers-chat/designers-chat.component';
 import { PersonalChatComponent } from './personal-chat/personal-chat.component';
 import { ToolbarComponent } from './home/toolbar/toolbar.component';
+import { AnnouncementListComponent } from './announcements/announcement-list/announcement-list.component';
+import { AnnouncementAddComponent } from './announcements/announcement-add/announcement-add.component';
+import { LeftSideComponent } from './home/left-side/left-side.component';
+import { RightSideComponent } from './home/right-side/right-side.component';
+import { AnnouncementContainerComponent } from './announcements/announcement-container/announcement-container.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +53,12 @@ import { ToolbarComponent } from './home/toolbar/toolbar.component';
     TestersChatComponent,
     DesignersChatComponent,
     PersonalChatComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    AnnouncementListComponent,
+    AnnouncementAddComponent,
+    LeftSideComponent,
+    RightSideComponent,
+    AnnouncementContainerComponent
   ],
   imports: [
     EmojiPickerModule.forRoot(),
@@ -66,6 +77,8 @@ import { ToolbarComponent } from './home/toolbar/toolbar.component';
     MatToolbarModule,
     MatMenuModule,
     MatBadgeModule,
+    MatListModule,
+    MatExpansionModule,
     MatTabsModule,
     MatInputModule,
     MatFormFieldModule

@@ -1,6 +1,14 @@
 
-
-
+.app-left-side{
+  float: left !important;
+  width: 240px !important;
+  height: 600px !important;
+}
+.app-right-side{
+  float: right !important;
+  width: 240px !important;
+  height: 600px !important;
+}
 
 
 /*  Personal Chat  */

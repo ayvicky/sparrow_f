@@ -8,6 +8,7 @@ import { StoriesListComponent } from './stories/stories-list/stories-list.compon
 import { FriendsListComponent } from './friends/friends-list/friends-list.component';
 import { MessageListComponent } from './messages/message-list/message-list.component';
 import { MessageChatComponent } from './messages/message-chat/message-chat.component';
+import { AnnouncementContainerComponent } from './announcements/announcement-container/announcement-container.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'announcements',
+    component: AnnouncementContainerComponent,
     canActivate: [AuthGuard]
   },
   {

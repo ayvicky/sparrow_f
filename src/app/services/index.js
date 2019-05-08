@@ -7,3 +7,4 @@ export * from './post.service';
 export * from './story.service';
 export * from './token.service';
 export * from './user.service';
+export * from './announcement.service';

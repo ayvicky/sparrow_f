@@ -1,0 +1,25 @@
+.container {
+    min-width: 540px;
+    width: 100%;
+    margin: auto;
+}
+.example-card {
+    position: relative;
+    display: inline-block;
+    margin: 8px 8px;
+    max-width: 450px;
+}
+
+.example-header-image {
+    background-size: cover;
+}
+
+.title {
+    font-weight: bold;
+}
+.img-article {
+    height: 350px;
+}
+.action-buttons{
+    text-align: center;
+}
