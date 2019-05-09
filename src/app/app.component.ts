@@ -49,13 +49,10 @@ export class AppComponent implements OnInit {
 
       this.getSpecificMessages();
 
-      const params = {
-        room1: this.user.username,
-        room2: this.receivername
-      };
-
-      this.socket.emit('join private chat', params);
-      console.log('join private chat');
+      this.socket.emit('join private chat', 
+                        { room1: this.user._id,
+                          room2: this.receiver_id}
+                      );
     });
   }
 
@@ -74,6 +71,8 @@ export class AppComponent implements OnInit {
 
 
     this.socket.on('private chat message', data => {
+      console.log('private message receive');
+      console.log(data);
       //  if (data.receiver === this.user.username) {
       this.isActiveChat = true;
       this.getSpecificMessages();
@@ -92,6 +91,8 @@ export class AppComponent implements OnInit {
       receiver_name: this.receivername,
       content: this.msg
     };
+    this.socket.emit('private chat', body);
+    return;
     this.messageService.Add(body).subscribe(result => {
       this.socket.emit('private chat', { sender: this.user.username, receiver: this.receivername });
     });

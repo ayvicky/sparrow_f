@@ -12,7 +12,10 @@ import { MatCardModule, MatIconModule,
          MatToolbarModule, MatMenuModule,
          MatBadgeModule, MatTabsModule,
          MatListModule, MatExpansionModule,
-         MatInputModule, MatFormFieldModule } from '@angular/material';
+         MatInputModule, MatFormFieldModule,
+         MatSelectModule, MatDatepickerModule,
+         MatNativeDateModule
+        } from '@angular/material';
 
 import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { AppRoutingModule } from './app-routing.module';
@@ -81,7 +84,10 @@ import { AnnouncementContainerComponent } from './announcements/announcement-con
     MatExpansionModule,
     MatTabsModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     {
