@@ -6,6 +6,8 @@ import io from 'socket.io-client';
 import * as moment from 'moment';
 import _ from 'lodash';
 
+import {Global}  from './helpers/global';
+
 import {
   TokenService,
   ChatService,
@@ -39,7 +41,7 @@ export class AppComponent implements OnInit {
     private tokenService: TokenService,
     private router: Router, private chatService: ChatService,
     private messageService: MessageService) {
-    this.socketHost = 'http://localhost:8080';
+    this.socketHost = Global.BASEURL;
     this.socket = io(this.socketHost);
 
     this.chatService.chatData.subscribe(data => {
@@ -75,11 +77,11 @@ export class AppComponent implements OnInit {
     this.socket.on('private chat message', data => {
       console.log('private message receive');
       console.log(data);
-      //  if (data.receiver === this.user.username) {
+        if ((data.receiver_id === this.user._id || data.sender_id === this.user._id) && (data.sender_id === this.receiver_id || data.receiver_id === this.receiver_id)) {
       this.isActiveChat = true;
       this.personalmessages.push(data);
     //  this.getSpecificMessages();
-      //  }
+        }
       console.log(this.personalmessages.length);
     });
   }
@@ -91,7 +93,6 @@ export class AppComponent implements OnInit {
     const body = {
       sender_id: this.user._id,
       receiver_id: this.receiver_id,
-      receiver_name: this.receivername,
       content: this.msg
     };
     this.socket.emit('private chat', body);
