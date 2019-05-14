@@ -1,27 +1,28 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-toolbar ></app-toolbar>
+<app-toolbar></app-toolbar>
 <app-left-side></app-left-side>
 <app-right-side></app-right-side>
 
 <!-- Personal Chat -->
 <div id="live-chat" *ngIf="isActiveChat">
 
-    <header class="clearfix">
-      <a class="chat-close" style="display:block !important;" (click)="close()">x</a>
-      <h4> {{receivername}} </h4>
-      <span class="chat-message-counter">3</span>
-    </header>
-    <!--
+  <header class="clearfix">
+    <a class="chat-close" style="display:block !important;" (click)="close()">x</a>
+    <h4> {{receivername}} </h4>
+    <span class="chat-message-counter">3</span>
+  </header>
+  <!--
     
     
     
   -->
-    <div class="chat">
-      <div class="chat-history" ngx-auto-scroll lock-y-offset="10" observe-attributes>
-        <div *ngFor="let message of personalmessages">
+  <div class="chat">
+    <div class="chat-history" ngx-auto-scroll lock-y-offset="10" observe-attributes>
+      <div *ngFor="let message of personalmessages">
         <div class="chat-message clearfix" *ngIf="message.sender_id==user._id">
           <img src="http://lorempixum.com/32/32/people" alt="" width="32" height="32">
           <div class="chat-message-content clearfix">
+            <img src="'https://s3.amazonaws.com/social-funda-bucket/' + message.url" *ngIf="message.url !== 'N-A'">
             <span class="chat-time">{{ sendfromnow(message.time) }}</span>
             <h5>{{message.sender_id}}</h5>
             <p>{{message.content}}</p>
@@ -31,23 +32,23 @@
         <div class="chat-message clearfix" *ngIf="message.receiver_id==user._id">
           <img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
           <div class="chat-message-content clearfix">
+            <img src="'https://s3.amazonaws.com/social-funda-bucket/' + message.url" *ngIf="message.url !== 'N-A'">
             <span class="chat-time">{{ sendfromnow(message.created_at) }}</span>
             <h5>{{message.sender_id}}</h5>
             <p>{{message.content}}</p>
           </div> <!-- end chat-message-content -->
         </div> <!-- end chat-message -->
         <hr>
-        </div>
-      </div> <!-- end chat-history -->
-      <p class="chat-feedback">Your partner is typing…</p>
-      <form>
-        <fieldset>
-          <input type="text" [(ngModel)]="msg" name="message" placeholder="Type your message…" autofocus style="position:relative !important;">
-          <mat-icon style="position: absolute !important; z-index: 1 !important;" (click)="sendMessage()">send</mat-icon>
-        </fieldset>
-      </form>
-    </div> <!-- end chat -->
-  
-  </div> <!-- end live-chat -->
-  
-  
+      </div>
+    </div> <!-- end chat-history -->
+    <p class="chat-feedback">Your partner is typing…</p>
+    <form>
+      <fieldset>
+        <input type="text" [(ngModel)]="msg" name="message" placeholder="Type your message…" autofocus
+          style="position:relative !important;">
+        <mat-icon style="position: absolute !important; z-index: 1 !important;" (click)="sendMessage()">send</mat-icon>
+      </fieldset>
+    </form>
+  </div> <!-- end chat -->
+
+</div> <!-- end live-chat -->
