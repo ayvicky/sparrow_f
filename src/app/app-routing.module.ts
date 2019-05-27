@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersListComponent,
-    canActivate: [AuthGuard]
+  //  canActivate: [AuthGuard]
   },
   {
     path: 'announcements',
