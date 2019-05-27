@@ -13,7 +13,9 @@ import { MatCardModule, MatIconModule,
          MatBadgeModule, MatTabsModule,
          MatListModule, MatExpansionModule,
          MatInputModule, MatFormFieldModule,
-         MatSelectModule, MatDatepickerModule,
+         MatSelectModule,
+         MatDialogModule,
+         MatDatepickerModule,
          MatNativeDateModule
         } from '@angular/material';
 
@@ -39,6 +41,7 @@ import { AnnouncementAddComponent } from './announcements/announcement-add/annou
 import { LeftSideComponent } from './home/left-side/left-side.component';
 import { RightSideComponent } from './home/right-side/right-side.component';
 import { AnnouncementContainerComponent } from './announcements/announcement-container/announcement-container.component';
+import { MediaCallComponent } from './messages/media-call/media-call.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,11 @@ import { AnnouncementContainerComponent } from './announcements/announcement-con
     AnnouncementAddComponent,
     LeftSideComponent,
     RightSideComponent,
-    AnnouncementContainerComponent
+    AnnouncementContainerComponent,
+    MediaCallComponent
+  ],
+  entryComponents: [
+    MediaCallComponent
   ],
   imports: [
     EmojiPickerModule.forRoot(),
@@ -86,6 +93,7 @@ import { AnnouncementContainerComponent } from './announcements/announcement-con
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule
   ],

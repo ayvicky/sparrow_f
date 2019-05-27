@@ -18,6 +18,7 @@ export class AnnouncementService {
   }
 
   getall(): Observable<any>{
+    console.log('get all announcements');
     return this.http.get(`${Global.BASEURL}/announcements`);
   }
   getbyid(announcement_id): Observable<any>{

@@ -1,0 +1,69 @@
+.container {
+    max-width: 1600;
+    min-width: 600px;
+    height: 100%;
+    margin: auto;
+  }
+  
+  .mat-card {
+    position: relative;
+    background: white;
+    display: inline-block;
+    border-radius: 3px;
+    width: 300px;
+    border: 1px solid lightgray;
+    margin: 30px 15px 30px 15px;
+  }
+  
+  .user-card {
+      max-width: 600px;
+      min-width: 450px;
+    }
+    
+    .user-header-image {
+      background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+      background-size: cover;
+    }
+  
+  
+    .img {
+      width: 100%;
+      margin-bottom: 18%;
+    }
+    .card-picture {
+      width: 23%;
+      margin-bottom: 2%;
+    }
+    .container {
+      min-height: 100%;
+      width: 100%;
+    }
+  
+
+    body {
+        display: flex;
+        height: 100vh;
+        margin: 0;
+        align-items: center;
+        justify-content: center;
+        padding: 0 50px;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    video {
+        max-width: calc(50% - 100px);
+        margin: 0 50px;
+        box-sizing: border-box;
+        border-radius: 2px;
+        padding: 0;
+        box-shadow: rgba(156, 172, 172, 0.2) 0px 2px 2px, rgba(156, 172, 172, 0.2) 0px 4px 4px, rgba(156, 172, 172, 0.2) 0px 8px 8px, rgba(156, 172, 172, 0.2) 0px 16px 16px, rgba(156, 172, 172, 0.2) 0px 32px 32px, rgba(156, 172, 172, 0.2) 0px 64px 64px;
+    }
+
+    .copy {
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.5);
+    }

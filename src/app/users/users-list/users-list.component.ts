@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import io from 'socket.io-client';
 import _ from 'lodash';
 
@@ -7,6 +7,7 @@ import _ from 'lodash';
 import { UserService } from 'src/app/services/user.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { TokenService } from 'src/app/services/token.service';
+import { MediaCallComponent } from 'src/app/messages/media-call/media-call.component';
 
 @Component({
   selector: 'app-users-list',
@@ -21,7 +22,7 @@ export class UsersListComponent implements OnInit {
   users = [];
   onlineusers = [];
   constructor(private userService: UserService, private tokenService: TokenService,
-    private chatService: ChatService) {
+    private chatService: ChatService, public dialog: MatDialog) {
       this.socketHost = 'http://localhost:8080';
       this.socket = io(this.socketHost);
      }
@@ -53,6 +54,27 @@ export class UsersListComponent implements OnInit {
       return false;
     }
   }
+
+
+  openDialog(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(MediaCallComponent, dialogConfig);
+    /*
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '250px',
+      data: {name: this.name, animal: this.animal}
+    });
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    //  this.animal = result;
+    });
+    */
+  }
+
 
   onChat(user) {
     console.log('onChat click');

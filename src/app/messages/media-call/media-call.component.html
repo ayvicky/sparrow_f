@@ -1,6 +1,10 @@
 <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" class="container">
-  <mat-card class="card-picture" *ngFor="let user of users">
+  <mat-card class="card-picture" *ngIf="user">
     <img mat-card-image [src]="(user.picture_url)? user.picture_url: 'https://via.placeholder.com/75'">
+    
+    <video id="localVideo" autoplay muted></video>
+    <video id="remoteVideo" autoplay></video>
+
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-icon fxFlex="100%" style="float:right; color:gray;" *ngIf="!checkifonline(user.username)">trip_origin</mat-icon>
@@ -12,30 +16,23 @@
     </mat-card-header>
 
     <mat-card-content>
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
-      </p>
+
     </mat-card-content>
 
     <mat-card-actions>
       <div style="float:left; margin-left: 30px;">
-        <mat-icon (click)="onChat(user)">chat</mat-icon>
+        <mat-icon (click)="onVideo()">chat</mat-icon>
       </div>
+
       <div style="float:left; margin-left: 30px;">
-        <mat-icon (click)="openDialog()">call</mat-icon>
+        <mat-icon (click)="onAudio()">call</mat-icon>
       </div>
-      <div style="float:right; margin-right: 30px;">
-        <mat-icon (click)="addFriend()">how_to_reg</mat-icon>
+
+      <div style="float:left; margin-left: 30px;">
+        <mat-icon (click)="onClose()">block</mat-icon>
       </div>
-      <div style="float:right; margin-right: 30px;">
-        <mat-icon  (click)="acceptFriend()">how_to_reg</mat-icon>
-        <mat-icon  (click)="rejectFriend()">block</mat-icon>
-      </div>
-      <div style="float:right; margin-right: 30px;">
-        <mat-icon  (click)="cancelFriend()">clear</mat-icon>
-      </div>
+      
+
     </mat-card-actions>
 
   </mat-card>

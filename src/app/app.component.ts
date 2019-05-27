@@ -24,10 +24,7 @@ export class AppComponent implements OnInit {
   title = 'socal-funda';
   socketHost;
   socket;
-
   token;
-
-
   user: any;
 
   personalmessages = [];
@@ -67,7 +64,7 @@ export class AppComponent implements OnInit {
       //  this.router.navigate(['users']);        
       this.user = this.tokenService.GetPayload();
 
-
+      console.log(this.user);
       this.socket.emit('online', { room: 'global', user: this.user.username });
     } else {
       this.router.navigate([]);
@@ -97,7 +94,7 @@ export class AppComponent implements OnInit {
     };
     this.socket.emit('private chat', body);
     this.msg = '';
-    return;
+  //  return;
     this.messageService.Add(body).subscribe(result => {
       this.socket.emit('private chat', { sender: this.user.username, receiver: this.receivername });
     });
@@ -124,8 +121,4 @@ export class AppComponent implements OnInit {
   close() {
     this.isActiveChat = false;
   }
-
-
-
-
 }

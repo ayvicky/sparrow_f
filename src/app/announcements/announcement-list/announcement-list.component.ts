@@ -16,6 +16,7 @@ export class AnnouncementListComponent implements OnInit {
 
   ngOnInit() {
     this.announcementService.getall().subscribe(result => {
+      console.log('announcements');
       console.log(result);
       this.announcements = result.announcements;
     });
