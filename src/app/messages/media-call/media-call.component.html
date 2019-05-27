@@ -2,8 +2,6 @@
   <mat-card class="card-picture" *ngIf="user">
     <img mat-card-image [src]="(user.picture_url)? user.picture_url: 'https://via.placeholder.com/75'">
     
-    <video id="localVideo" autoplay muted></video>
-    <video id="remoteVideo" autoplay></video>
 
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
@@ -36,4 +34,7 @@
     </mat-card-actions>
 
   </mat-card>
+  
+  <video id="localVideo" autoplay muted></video>
+  <video id="remoteVideo" autoplay></video>
 </div>
