@@ -80,12 +80,63 @@ export class MediaCallComponent implements OnInit, AfterViewInit {
     }
   }
 
+  setupRtc() {
+
+  }
+
   onVideo() {
     console.log('video calling');
     navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(myStream => {
       this.stream = myStream;
+      //            video.src = stream;
+      if ('srcObject' in this.localVideo) {
+        this.localVideo.srcObject = this.stream;
+      } else {
+        // Avoid using this in new browsers, as it is going away.
+        this.localVideo.src = URL.createObjectURL(this.stream);
+      }
 
-      this.localVideo.src = this.stream
+
+
+      this.yourConn = new webkitRTCPeerConnection(this.configuration);
+
+      // setup stream listening 
+      this.yourConn.addStream(this.stream);
+
+      //when a remote user adds stream to the peer connection, we display it 
+      this.yourConn.onaddstream = function (e) {
+        this.remoteVideo.src = window.URL.createObjectURL(e.stream);
+      };
+
+      // Setup ice handling 
+      this.yourConn.onicecandidate = function (event) {
+
+        if (event.candidate) {
+          this.socket.emit('rtc-manager', {
+            type: 'candidate',
+            caller: this.user.username,
+            calle: 'designer',
+            data: event.candidate
+          });
+        }
+
+      };
+
+      // create an offer 
+      this.yourConn.createOffer(function (offer) {
+        this.socket.emit('rtc-manager', {
+          type: 'offer',
+          caller: this.user.username,
+          calle: 'designer',
+          data: offer
+        });
+
+        this.yourConn.setLocalDescription(offer);
+      }, function (error) {
+        alert("Error when creating an offer");
+      });
+
+
     }).catch(function (e) {
       console.log('' + e);
     });
@@ -111,5 +162,59 @@ export class MediaCallComponent implements OnInit, AfterViewInit {
       urls: 'stun:stun.l.google.com:19302'
     }]
   };
+
+
+  //when somebody sends us an offer 
+  handleOffer(offer) {
+    this.yourConn.setRemoteDescription(new RTCSessionDescription(offer));
+
+    //create an answer to an offer 
+    this.yourConn.createAnswer(function (answer) {
+      this.yourConn.setLocalDescription(answer);
+
+      this.socket.emit('rtc-manager', {
+        type: 'answer',
+        caller: this.user.username,
+        calle: 'designer',
+        data: answer
+      });
+
+    }, function (error) {
+      alert("Error when creating an answer");
+    });
+  };
+
+  //when we got an answer from a remote user
+  handleAnswer(answer) {
+    this.yourConn.setRemoteDescription(new RTCSessionDescription(answer));
+  };
+
+  //when we got an ice candidate from a remote user 
+  handleCandidate(candidate) {
+    this.yourConn.addIceCandidate(new RTCIceCandidate(candidate));
+  };
+
+  //hang up 
+  hangUp() {
+
+    this.socket.emit('rtc-manager', {
+      type: 'leave',
+      caller: this.user.username,
+      calle: 'designer',
+      data: ''
+    });
+
+    this.handleLeave();
+  };
+
+  handleLeave() {
+    this.remoteVideo.src = null;
+
+    this.yourConn.close();
+    this.yourConn.onicecandidate = null;
+    this.yourConn.onaddstream = null;
+  };
+
+
 
 }
