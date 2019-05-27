@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { UserService } from 'src/app/services/user.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { TokenService } from 'src/app/services/token.service';
+import { Global } from 'src/app/helpers/global';
 
 @Component({
   selector: 'app-media-call',
@@ -26,7 +27,7 @@ export class MediaCallComponent implements OnInit, AfterViewInit {
 
   constructor(private userService: UserService, private tokenService: TokenService,
     private chatService: ChatService) {
-    this.socketHost = 'http://localhost:8080';
+    this.socketHost = Global.BASEURL;
     this.socket = io(this.socketHost);
   }
 

@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import _ from 'lodash';
 
 import { FriendService, MessageService, AuthService, TokenService } from '../../services';
+import { Global } from 'src/app/helpers/global';
 
 @Component({
   selector: 'app-toolbar',
@@ -43,7 +44,7 @@ export class ToolbarComponent implements OnInit {
     private messageService: MessageService,
     private authService: AuthService,
     private tokenService: TokenService) {
-    this.socketHost = 'http://localhost:8080';
+    this.socketHost = Global.BASEURL;
     this.socket = io(this.socketHost);
   }
 

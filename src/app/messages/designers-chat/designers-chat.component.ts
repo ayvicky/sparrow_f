@@ -6,6 +6,7 @@ import io from 'socket.io-client';
 import * as moment from  'moment';
 
 import { TokenService } from '../../services/token.service';
+import { Global } from 'src/app/helpers/global';
 
 @Component({
   selector: 'app-designers-chat',
@@ -35,7 +36,7 @@ export class DesignersChatComponent implements OnInit, AfterViewInit {
   constructor(private tokenService: TokenService) { }
 
   ngOnInit() {
-    this.socket = io('http://localhost:8080/designers');
+    this.socket = io(Global.BASEURL);
     this.user = this.tokenService.GetPayload();
 
     this.socket.emit('online', {room: 'designers', user: this.user.username});

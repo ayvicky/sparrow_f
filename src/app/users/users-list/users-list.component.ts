@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { TokenService } from 'src/app/services/token.service';
 import { MediaCallComponent } from 'src/app/messages/media-call/media-call.component';
+import { Global } from 'src/app/helpers/global';
 
 @Component({
   selector: 'app-users-list',
@@ -23,7 +24,7 @@ export class UsersListComponent implements OnInit {
   onlineusers = [];
   constructor(private userService: UserService, private tokenService: TokenService,
     private chatService: ChatService, public dialog: MatDialog) {
-      this.socketHost = 'http://localhost:8080';
+      this.socketHost = Global.BASEURL;
       this.socket = io(this.socketHost);
      }
 

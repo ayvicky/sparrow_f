@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import io from 'socket.io-client';
+import { Global } from 'src/app/helpers/global';
 
 @Component({
   selector: 'app-developers-chat',
@@ -14,7 +15,7 @@ export class DevelopersChatComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.socket = io('http://heroku.com');
+    this.socket = io(Global.BASEURL);
     this.socket.emit('connect user', {username: 'A'});  
   }
 
