@@ -15,7 +15,7 @@
 }
 
 .user-card {
-    max-width: 300px;
+    max-width: 360px;
   }
   
   .user-header-image {
@@ -29,7 +29,6 @@
     margin-bottom: 18%;
   }
   .card-picture {
-    width: 23%;
     margin-bottom: 2%;
   }
   .container {
