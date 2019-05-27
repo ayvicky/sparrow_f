@@ -5,8 +5,9 @@ import { Observable }  from 'rxjs';
 
 import { User } from '../interfaces/user';
 import { TokenService } from './token.service';
+import { Global } from '../helpers/global';
 
-const BASEURL = 'http://localhost:8080/api';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AuthService {
   }
   
   public Login(body): Observable<any> {
-    return this.http.post(`${BASEURL}/auth/login`, body);
+    return this.http.post(`${Global.BASEURL}/auth/login`, body);
   }
 
   public isLoggedin() {
@@ -27,7 +28,7 @@ export class AuthService {
   }
 
   public signout(){
-    return this.http.get(`${BASEURL}/auth/logout`);
+    return this.http.get(`${Global.BASEURL}/auth/logout`);
 //    localStorage.removeItem('ACCESS_TOKEN');
   }
 }

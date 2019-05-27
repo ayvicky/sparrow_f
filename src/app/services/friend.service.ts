@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable }  from 'rxjs';
+import { Global } from '../helpers/global';
 
-const BASEURL = 'http://localhost:8080/api';
 
 @Injectable({
   providedIn: 'root'
@@ -17,27 +17,27 @@ export class FriendService {
   }
 
   add(body): Observable<any> {
-    return this.http.post(`${BASEURL}/friends/add`, body, this.options);
+    return this.http.post(`${Global.BASEURL}/friends/add`, body, this.options);
   }
 
   confirm(): Observable<any>{
-    return this.http.put(`${BASEURL}/friends/confirm`, this.options);
+    return this.http.put(`${Global.BASEURL}/friends/confirm`, this.options);
   }
 
   reject(): Observable<any>{
-    return this.http.put(`${BASEURL}/friends/reject`, this.options);
+    return this.http.put(`${Global.BASEURL}/friends/reject`, this.options);
   }
 
   cancel(): Observable<any>{
-    return this.http.delete(`${BASEURL}/friends/cancel`, this.options);
+    return this.http.delete(`${Global.BASEURL}/friends/cancel`, this.options);
   }
 
   remove(): Observable<any>{
-    return this.http.delete(`${BASEURL}/friends/remove`, this.options);
+    return this.http.delete(`${Global.BASEURL}/friends/remove`, this.options);
   }
 
   getAll(): Observable<any>{
-    return this.http.get(`${BASEURL}/friends`, this.options);
+    return this.http.get(`${Global.BASEURL}/friends`, this.options);
   }
  
 }

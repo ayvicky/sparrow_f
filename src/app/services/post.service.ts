@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable }  from 'rxjs';
+import { Global } from '../helpers/global';
 
-const BASEURL = 'http://localhost:8080/api';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +17,12 @@ export class PostService {
   }
 
   registerUser(body): Observable<any> {
-    return this.http.post(`${BASEURL}/posts/register`, body);
+    return this.http.post(`${Global.BASEURL}/posts/register`, body);
   }
 
   getUsers(): Observable<any>{
     
-    return this.http.get(`${BASEURL}/posts/users/`, this.options);
+    return this.http.get(`${Global.BASEURL}/posts/users/`, this.options);
   }
  
 }
