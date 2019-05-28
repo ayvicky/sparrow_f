@@ -80,9 +80,6 @@ export class MediaCallComponent implements OnInit, AfterViewInit {
     }
   }
 
-  setupRtc() {
-
-  }
 
   onVideo() {
     console.log('video calling');
@@ -105,7 +102,12 @@ export class MediaCallComponent implements OnInit, AfterViewInit {
 
       //when a remote user adds stream to the peer connection, we display it 
       this.yourConn.onaddstream = function (e) {
-        this.remoteVideo.src = window.URL.createObjectURL(e.stream);
+        if ('srcObject' in this.remoteVideo) {
+          this.remoteVideo.srcObject = e.stream;
+        } else {
+          // Avoid using this in new browsers, as it is going away.
+          this.remoteVideo.src = URL.createObjectURL(e.stream);
+        }
       };
 
       // Setup ice handling 
