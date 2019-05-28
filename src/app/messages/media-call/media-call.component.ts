@@ -43,22 +43,22 @@ export class MediaCallComponent implements OnInit, AfterViewInit {
     this.localVideo = document.querySelector('#localVideo');
 
 
-    this.socket.on('rtc-message', data => {
+    this.socket.on('rtc-manager', data => {
       switch (data.type) {
         case 'login':
 
           break;
         case 'offer':
-          //  handleOffer(data);
+            this.handleOffer(data);
           break;
         case 'answer':
-          //  handleAnswer(data);
+            this.handleAnswer(data);
           break;
         case 'candidate':
-          //  handleCandidate(data);
+            this.handleCandidate(data);
           break;
         case 'leave':
-          //  handleLeave(data);
+            this.handleLeave();
           break;
         default:
           break;
@@ -166,7 +166,7 @@ export class MediaCallComponent implements OnInit, AfterViewInit {
 
   //when somebody sends us an offer 
   handleOffer(offer) {
-    this.yourConn.setRemoteDescription(new RTCSessionDescription(offer));
+    this.yourConn.setRemoteDescription(new RTCSessionDescription(offer.data));
 
     //create an answer to an offer 
     this.yourConn.createAnswer(function (answer) {
@@ -186,12 +186,12 @@ export class MediaCallComponent implements OnInit, AfterViewInit {
 
   //when we got an answer from a remote user
   handleAnswer(answer) {
-    this.yourConn.setRemoteDescription(new RTCSessionDescription(answer));
+    this.yourConn.setRemoteDescription(new RTCSessionDescription(answer.data));
   };
 
   //when we got an ice candidate from a remote user 
   handleCandidate(candidate) {
-    this.yourConn.addIceCandidate(new RTCIceCandidate(candidate));
+    this.yourConn.addIceCandidate(new RTCIceCandidate(candidate.data));
   };
 
   //hang up 
