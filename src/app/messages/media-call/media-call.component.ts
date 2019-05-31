@@ -93,7 +93,7 @@ export class MediaCallComponent implements OnInit, AfterViewInit {
         this.localVideo.src = URL.createObjectURL(this.stream);
       }
 
-
+ 
 
       this.yourConn = new webkitRTCPeerConnection(this.configuration);
 

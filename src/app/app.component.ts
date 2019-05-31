@@ -6,7 +6,7 @@ import io from 'socket.io-client';
 import * as moment from 'moment';
 import _ from 'lodash';
 
-import {Global}  from './helpers/global';
+import { Global } from './helpers/global';
 
 import {
   TokenService,
@@ -74,12 +74,32 @@ export class AppComponent implements OnInit {
     this.socket.on('private chat message', data => {
       console.log('private message receive');
       console.log(data);
-        if ((data.receiver_id === this.user._id || data.sender_id === this.user._id) && (data.sender_id === this.receiver_id || data.receiver_id === this.receiver_id)) {
-      this.isActiveChat = true;
-      this.personalmessages.push(data);
-    //  this.getSpecificMessages();
-        }
+      if ((data.receiver_id === this.user._id || data.sender_id === this.user._id) && (data.sender_id === this.receiver_id || data.receiver_id === this.receiver_id)) {
+        this.isActiveChat = true;
+        this.personalmessages.push(data);
+        //  this.getSpecificMessages();
+      }
       console.log(this.personalmessages.length);
+    });
+
+    this.socket.on('rtc-manager', message => {
+      if (message.caller === this.user.username || message.calle === this.user.username) {
+        switch (message.type) {
+          case 'offer' && this.user.username === message.calle:
+
+            break;
+          case 'answer':
+
+            break;
+          case 'candidate':
+
+            break;
+          case 'leave':
+
+            break;
+
+        }
+      }
     });
   }
 
@@ -94,7 +114,7 @@ export class AppComponent implements OnInit {
     };
     this.socket.emit('private chat', body);
     this.msg = '';
-  //  return;
+    //  return;
     this.messageService.Add(body).subscribe(result => {
       this.socket.emit('private chat', { sender: this.user.username, receiver: this.receivername });
     });
