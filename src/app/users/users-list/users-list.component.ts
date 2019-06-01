@@ -25,7 +25,7 @@ export class UsersListComponent implements OnInit {
   onlineusers = [];
   constructor(private userService: UserService, private tokenService: TokenService,
       private chatService: ChatService, public dialog: MatDialog,
-      private calldialog: CallDialogService) {
+      private callDialogService: CallDialogService) {
       this.socketHost = Global.BASEURL;
       this.socket = io(this.socketHost);
      }
@@ -60,6 +60,9 @@ export class UsersListComponent implements OnInit {
 
 
   openDialog(): void {
+
+      this.callDialogService.showDialog();
+      return;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;

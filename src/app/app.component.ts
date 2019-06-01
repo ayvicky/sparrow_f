@@ -13,6 +13,7 @@ import {
   ChatService,
   MessageService
 } from './services';
+import { CallDialogService } from './services/call-dialog.service';
 
 
 @Component({
@@ -37,7 +38,7 @@ export class AppComponent implements OnInit {
   constructor(
     private tokenService: TokenService,
     private router: Router, private chatService: ChatService,
-    private messageService: MessageService) {
+    private messageService: MessageService, private callDialogService: CallDialogService) {
     this.socketHost = Global.BASEURL;
     this.socket = io(this.socketHost);
 
@@ -83,10 +84,12 @@ export class AppComponent implements OnInit {
     });
 
     this.socket.on('rtc-manager', message => {
+      console.log('rtc-manager called');
+      console.log(message);
       if (message.caller === this.user.username || message.calle === this.user.username) {
         switch (message.type) {
           case 'offer' && this.user.username === message.calle:
-
+              this.callDialogService.showDialog();
             break;
           case 'answer':
 
