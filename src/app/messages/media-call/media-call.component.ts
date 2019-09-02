@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import io from 'socket.io-client';
 import _ from 'lodash';
 
+import { Peer } from 'simple-peer';
+
 import { UserService } from 'src/app/services/user.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -17,7 +19,8 @@ export class MediaCallComponent implements OnInit, AfterViewInit {
   localVideo: any;
   yourConn: any;
   stream: any;
-
+  client = { gotAnswer: false, peer: Peer };
+  peer;
   socketHost;
   socket;
   user: any;
@@ -49,21 +52,28 @@ export class MediaCallComponent implements OnInit, AfterViewInit {
 
           break;
         case 'offer':
-            this.handleOffer(data);
+          this.handleOffer(data);
           break;
         case 'answer':
-            this.handleAnswer(data);
+          this.handleAnswer(data);
           break;
         case 'candidate':
-            this.handleCandidate(data);
+          this.handleCandidate(data);
           break;
         case 'leave':
-            this.handleLeave();
+          this.handleLeave();
           break;
         default:
           break;
       }
     });
+
+
+    this.socket.on('BackOffer', this.FrontAnswer);
+    this.socket.on('BackAnswer', this.SignalAnswer);
+    this.socket.on('SessionActive', this.SessionActive);
+    this.socket.on('CreatePeer', this.MakePeer);
+
   }
   ngAfterViewInit() {
     // set the initial state of the video
@@ -80,7 +90,6 @@ export class MediaCallComponent implements OnInit, AfterViewInit {
     }
   }
 
-
   onVideo() {
     console.log('video calling');
     navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(myStream => {
@@ -93,7 +102,10 @@ export class MediaCallComponent implements OnInit, AfterViewInit {
         this.localVideo.src = URL.createObjectURL(this.stream);
       }
 
- 
+      this.socket.emit('NewClient');
+
+
+
 
       this.yourConn = new webkitRTCPeerConnection(this.configuration);
 
@@ -143,6 +155,57 @@ export class MediaCallComponent implements OnInit, AfterViewInit {
       console.log('' + e);
     });
   }
+
+
+  // Create a peer of type init
+  MakePeer() {
+    console.log('make peer');
+    this.client.gotAnswer = false;
+    this.peer = this.initPeer('init');
+    this.peer.on('signal', function (data) {
+      if (!this.client.gotAnswer) {
+        this.socket.emit('Offer', data)
+      }
+    });
+    this.client.peer = this.peer;
+  }
+  //
+  initPeer(type) {
+    let peer = new Peer({ initiator: (type === 'init') ? true : false, stream: this.stream, trickle: false });
+
+    peer.on('stream', function (stream) {
+      this.CreateVideo(stream);
+    })
+    peer.on('close', function () {
+      this.localVideo.src.remove();
+      peer.destroy();
+    })
+    return peer;
+  }
+
+  CreateVideo(stream) {
+    this.remoteVideo.srcObject = stream;
+  }
+  // For peer of type not init
+  FrontAnswer(offer) {
+    let peer = new Peer('notInit');
+    peer.on('signal', (data) => {
+      this.socket.emit('Answer', data)
+    })
+    peer.signal(offer);
+  }
+  SignalAnswer(answer) {
+    this.client.gotAnswer = true;
+    let peer = this.client.peer;
+    peer.signal(answer);
+  }
+
+
+  // when someone already chatting
+  SessionActive() {
+    window.alert('session already active, please try later');
+  }
+
 
   onAudio() {
     console.log('audio calling');
